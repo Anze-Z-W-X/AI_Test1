@@ -5,10 +5,11 @@ import java.util.List;
 
 public class Rule {
     List<Integer> conditions = new ArrayList<Integer>();
-    int conclusion;
-    String[] features = {"有毛", "产奶", "有羽毛", "会飞", "会下蛋", "吃肉", "有犬齿", "有爪", "眼睛盯前方", "有蹄",
-            "反刍", "黄褐色", "有斑点", "有黑色条纹", "长脖", "长腿", "不会飞", "会游泳", "黑白两色", "善飞",
-            "哺乳类", "鸟类", "肉食类", "蹄类", "企鹅", "海燕", "鸵鸟", "斑马", "长颈鹿", "虎", "金钱豹"};
+    private int conclusion;
+    String[] features = {"体型大", "体型小", "有轮子", "流线型", "在天上的", "在水里的",
+            "在地上的", "冒黑烟的", "有机翼的", "有螺旋桨的", "有四个轮子的", "有两个轮子的",
+            "车", "飞机", "船", "货轮", "航空飞机", "直升飞机",
+            "汽车", "自行车", "渔船", "拖拉机"};
 
     // 添加一个条件
     public void addCondition(int condition) {
@@ -29,14 +30,14 @@ public class Rule {
         boolean satisfied = true;
         for (int i = 0; i < this.conditions.size(); i++) {
             int rule = this.conditions.get(i);
-            boolean ok = false;
+            boolean flag = false;
             for(int j = 0; j < conditions.length; j++) {
                 if(Integer.parseInt(conditions[j].toString()) == rule){
-                    ok = true;
+                    flag = true;
                     break;
                 }
             }
-            if(!ok){
+            if(!flag){
                 // 有一个条件不满足都不满足
                 satisfied = false;
                 break;
@@ -46,16 +47,16 @@ public class Rule {
     }
 
     public String toString() {
-        String expr = "因为";
+        StringBuilder res = new StringBuilder("因为是");
         for (int i = 0; i < conditions.size(); i++) {
-            expr += features[conditions.get(i)];
+            res.append(features[conditions.get(i)]);
             if (i != conditions.size() - 1) {
-                expr += "、";
+                res.append("、");
             }
         }
-        expr += ", 所以是";
-        expr += features[conclusion];
-        expr += "。\n";
-        return expr;
+        res.append(", 所以是");
+        res.append(features[conclusion]);
+        res.append("。\n");
+        return res.toString();
     }
 }

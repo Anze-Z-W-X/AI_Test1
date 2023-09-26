@@ -5,7 +5,7 @@ import java.util.*;
 public class RuleRepository {
     List<Rule> rules = new ArrayList<>();
     Set<Integer> conditions = new TreeSet<>();
-    String animals = "";
+    String vehicle = "";
 
     // 构造函数，传入用户输入的条件编号
     public RuleRepository(int[] conditions){
@@ -15,25 +15,29 @@ public class RuleRepository {
         init();
     }
 
-    // 初始化规则库，初始有15条规则，总共能识别7种动物
+    // 初始化规则库,初始有12条规则
+    /*
+    *       features = {"体型大", "体型小", "有轮子", "流线型", "在天上的", "在水里的",
+            "在地上的", "冒黑烟的", "有机翼的", "有螺旋桨的", "有四个轮子的", "有两个轮子的",
+            "车", "飞机", "船", "货轮", "航空飞机", "直升飞机",
+            "汽车", "自行车", "渔船", "拖拉机"};
+    * */
     private void init(){
-        // 15条规则
+        // 12条规则
         int[][][] expr = new int[][][]{
-                {{0}, {20}},
-                {{1}, {20}},
-                {{2}, {21}},
-                {{3, 4}, {21}},
-                {{20, 5}, {22}},
-                {{6, 7, 8}, {22}},
-                {{20, 8}, {23}},
-                {{20, 9}, {23}},
-                {{22, 11, 12}, {30}},
-                {{22, 11, 13}, {29}},
-                {{23, 14, 15, 12}, {28}},
-                {{23, 13}, {27}},
-                {{21, 14, 15, 16}, {26}},
-                {{21, 19}, {25}},
-                {{21, 17, 18, 16}, {24}}};
+                {{1,2}, {12}},
+                {{0,3}, {13}},
+                {{4}, {13}},
+                {{5}, {14}},
+                {{6}, {12}},
+                {{0,7,14}, {15}},
+                {{8,13}, {16}},
+                {{9,13}, {17}},
+                {{10,12}, {18}},
+                {{11,12}, {19}},
+                {{0,2},{21}},
+                {{1,14},{20}}
+        };
         for(int i = 0; i < expr.length; i++){
             Rule rule = new Rule();
             for(int j = 0; j < expr[i][0].length; j++){
@@ -52,18 +56,18 @@ public class RuleRepository {
             if(rule.isSatisfied(conditions.toArray())){
                 result += rule.toString();
                 int con = rule.getConclusion();
-                // 注意：满足的话要把结论加到已知条件中，且要维持有序（条件序列满足拓扑结构）
+                // 若满足的话要把结论加到已知条件中，且要维持有序（条件序列满足拓扑结构）
                 conditions.add(rule.getConclusion());
-                if(con >= 24){
-                    animals += con;
-                    animals += " ";
+                if(con >= 15){
+                    vehicle += con;
+                    vehicle += " ";
                 }
             }
         }
         return result;
     }
 
-    public String getAnimals() {
-        return animals;
+    public String getVehicle() {
+        return vehicle;
     }
 }

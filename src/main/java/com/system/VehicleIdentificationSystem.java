@@ -2,14 +2,14 @@ package com.system;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class VehicleIdentificationSystem extends JFrame {
-    String[] features = {"有毛", "产奶", "有羽毛", "会飞", "会下蛋", "吃肉", "有犬齿", "有爪", "眼睛盯前方", "有蹄",
-            "反刍", "黄褐色", "有斑点", "有黑色条纹", "长脖", "长腿", "不会飞", "会游泳", "黑白两色", "善飞"};
+    String[] features = {"体型大", "体型小", "有轮子", "流线型", "在天上的", "在水里的",
+            "在地上的", "冒黑烟的", "有机翼的", "有螺旋桨的", "有四个轮子的", "有两个轮子的"};
     private JCheckBox[] checkBoxes = new JCheckBox[features.length];
     private String input = "";
     private int[] conditions;
@@ -24,7 +24,7 @@ public class VehicleIdentificationSystem extends JFrame {
         this.setLayout(new FlowLayout());
 
         JPanel option = new JPanel();
-        option.setLayout(new GridLayout(2, 10));
+        option.setLayout(new GridLayout(2, 6));
         option.setPreferredSize(new Dimension((int)(dimension.width * 0.95), (int) (dimension.height * 0.2)));
         for (int i = 0; i < features.length; i++) {
             checkBoxes[i] = new JCheckBox(features[i]);
@@ -33,28 +33,15 @@ public class VehicleIdentificationSystem extends JFrame {
         this.add(option);
 
         Box box = Box.createVerticalBox();
-
-        JPanel leftPanel = new JPanel();
-        JLabel[] pictures = new JLabel[7];
-        Icon[] icons = new ImageIcon[7];
-        for (int i = 1; i <= 7; i++) {
-            pictures[i - 1] = new JLabel();
-            icons[i - 1] = new ImageIcon("src/images/" + i + ".png");
-            pictures[i - 1].setIcon(icons[i - 1]);
-            leftPanel.add(pictures[i - 1]);
-        }
-
-        box.add(leftPanel);
-
-        JPanel rightPanel = new JPanel();
-        rightPanel.setPreferredSize(new Dimension(dimension.width, (int) (dimension.height * 0.38)));
-//        rightPanel.setBackground(Color.red);
-        JTextArea showResult = new JTextArea("我叫赵文旭，这是我制作的动物识别专家系统\n");
+        JPanel jPanel = new JPanel();
+        jPanel.setPreferredSize(new Dimension(dimension.width, (int) (dimension.height * 0.38)));
+        jPanel.setBackground(Color.blue);
+        JTextArea showResult = new JTextArea("2127406029赵文旭，这是我制作的交通工具识别系统\n");
         showResult.setPreferredSize(new Dimension(dimension.width, (int) (dimension.height * 0.38)));
-        rightPanel.add(showResult);
-        box.add(rightPanel);
+        jPanel.add(showResult);
+        box.add(jPanel);
 
-        JButton confirm = new JButton("开始");
+        JButton confirm = new JButton("判断");
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -67,9 +54,6 @@ public class VehicleIdentificationSystem extends JFrame {
                         input += " ";
                     }
                 }
-                for(int i = 0; i < 7; i++) {
-                    pictures[i].setBorder(BorderFactory.createLineBorder(Color.white, 0));
-                }
                 // 转化为数组，按空格分割
                 String[] inputs = input.split("\\s+");
                 conditions = new int[inputs.length];
@@ -79,13 +63,6 @@ public class VehicleIdentificationSystem extends JFrame {
                 ruleRepository = new RuleRepository(conditions);
                 String res = ruleRepository.reasoning();
                 showResult.setText(res);
-                String animalString = ruleRepository.getAnimals();
-                String[] animals = animalString.split("\\s+");
-                for(int i = 0; i < animals.length; i++){
-                    if(animals[i].contentEquals("")) continue;
-                    int pic = Integer.parseInt(animals[i]) - 24;
-                    pictures[pic].setBorder(BorderFactory.createLineBorder(Color.red, 3));
-                }
             }
         });
         box.add(confirm);
@@ -106,9 +83,9 @@ public class VehicleIdentificationSystem extends JFrame {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
-        VehicleIdentificationSystem animalIdentificationExpertSystem = new VehicleIdentificationSystem();
+        VehicleIdentificationSystem vehicleIdentificationSystem = new VehicleIdentificationSystem();
     }
 
 }
