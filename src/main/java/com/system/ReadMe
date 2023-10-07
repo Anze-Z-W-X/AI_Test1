@@ -1,0 +1,21 @@
+运行环境:java17
+运行程序:IDEA 2022.1.1
+
+系统名称：交通工具识别系统
+1.系统谓词：Vehicle(x):交通工具是x
+          Size(y):体型是y
+          Feature(z):特征是z
+
+2.规则库（共十二条规则）：
+r0：IF Size（小）AND Feature（有轮子） THEN Vehicle（车）
+r1：IF Size（大）AND Feature（流线型） THEN Vehicle（飞机）
+r2：IF Feature（天上飞的） THEN Vehicle（飞机）
+r3：IF Feature（水上游的） THEN Vehicle（船）
+r4：IF Feature（地上跑的） THEN Vehicle（车）
+r5：IF Size（大） AND Feature（冒黑烟） AND Vehicle（船） THEN Vehicle（轮船）
+r6：IF Vehicle（飞机） AND Feature（有机翼） THEN Vehicle（航天飞机）
+r7：IF Vehicle（飞机） AND Feature（有螺旋桨） THEN Vehicle（直升机）
+r8：IF Vehicle（车） AND Feature（有四个轮） THEN Vehicle（汽车）
+r9：IF Vehicle（车） AND Feature（有两个轮） THEN Vehicle（自行车）
+r10: IF Size（小）AND Feature（有轮子） THEN Vehicle（车）
+r11：IF Size（小）AND Vehicle（船） THEN Vehicle（渔船）

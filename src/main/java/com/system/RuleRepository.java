@@ -67,6 +67,7 @@ public class RuleRepository {
         return result;
     }
 
+    //获得交通工具
     public String getVehicle() {
         return vehicle;
     }
